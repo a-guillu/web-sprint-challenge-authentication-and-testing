@@ -21,11 +21,11 @@ beforeEach( async () => {
 })
 
 describe('[POST] /register', () => {
-  test('adds user to database', async () => {
+  test('adds a user to the database', async () => {
     const users = await db('users')
     expect(users).toHaveLength(1)
   })
-  test('responds with newly created user', async () => {
+  test('responds with a newly created user', async () => {
     const users = await db('users')
     expect(users[0].username).toEqual('Alex')
   })
@@ -40,10 +40,10 @@ describe('[POST] /login', () => {
         password: "weallstayup"
       })
   })
-  test('user can login successfully', async () => {
+  test('user is able to login successfully', async () => {
     expect(login.text).toMatch('token')
   })
-  test('responds with successful login message', async () => {
+  test('responds with a successful login message', async () => {
     expect(login.text).toMatch('welcome back, Alex')
   })
 })
