@@ -3,6 +3,13 @@ const User = require('./auth-model')
 const checkUserExists = async (req, res, next) => {
     try {
         const {username} = req.body
+        if(!username){
+            next({
+                message: 'username and password required',
+                status: 400
+            })
+            return
+        }
         const newUser = await User.findBy({username})
         if(newUser[0]){
             next({
@@ -20,10 +27,11 @@ const checkUserExists = async (req, res, next) => {
 const validateBody = async (req, res, next) => {
     try {
         const {username, password} = req.body
+        console.log('before if statement', username, password)
         if(!username || !password || typeof password !== 'string' || !password.trim() || !username.trim()) {
             next({
-                status: 400,
-                message: 'username and password required'
+                message: 'username and password required',
+                status: 400
             })
         } else {
             next()

@@ -11,10 +11,6 @@ beforeAll( async () => {
   await db.migrate.latest()
 });
 
-afterAll( async () => {
-  await db.destroy()
-});
-
 beforeEach( async () => {
   await request(server).post('/api/auth/register')
     .send({username: "Alex", password: "weallstayup"})
@@ -47,3 +43,7 @@ describe('[POST] /login', () => {
     expect(login.text).toMatch('welcome back, Alex')
   })
 })
+
+afterAll( async () => {
+  await db.destroy()
+});
